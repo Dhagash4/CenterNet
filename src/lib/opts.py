@@ -12,7 +12,7 @@ class opts(object):
     # basic experiment setting
     self.parser.add_argument('task', default='ctdet',
                              help='ctdet | ddd | multi_pose | exdet')
-    self.parser.add_argument('--dataset', default='coco',
+    self.parser.add_argument('--dataset', default='mineapple',
                              help='coco | kitti | coco_hp | pascal')
     self.parser.add_argument('--exp_id', default='default')
     self.parser.add_argument('--test', action='store_true')
@@ -126,7 +126,7 @@ class opts(object):
     self.parser.add_argument('--scale', type=float, default=0.4,
                              help='when not using random crop'
                                   'apply scale augmentation.')
-    self.parser.add_argument('--rotate', type=float, default=0,
+    self.parser.add_argument('--rotate', type=float, default=0.3,
                              help='when not using random crop'
                                   'apply rotation augmentation.')
     self.parser.add_argument('--flip', type = float, default=0.5,
@@ -335,9 +335,9 @@ class opts(object):
 
   def init(self, args=''):
     default_dataset_info = {
-      'ctdet': {'default_resolution': [512, 512], 'num_classes': 80, 
+      'ctdet': {'default_resolution': [512, 512], 'num_classes': 1, 
                 'mean': [0.408, 0.447, 0.470], 'std': [0.289, 0.274, 0.278],
-                'dataset': 'coco'},
+                'dataset': 'mineapple'},
       'exdet': {'default_resolution': [512, 512], 'num_classes': 80, 
                 'mean': [0.408, 0.447, 0.470], 'std': [0.289, 0.274, 0.278],
                 'dataset': 'coco'},

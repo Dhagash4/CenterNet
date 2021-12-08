@@ -142,4 +142,6 @@ class CTDetDataset(data.Dataset):
                np.zeros((1, 6), dtype=np.float32)
       meta = {'c': c, 's': s, 'gt_det': gt_det, 'img_id': img_id}
       ret['meta'] = meta
+
+    import ipdb; ipdb.set_trace()
     return ret
