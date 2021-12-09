@@ -143,5 +143,5 @@ class CTDetDataset(data.Dataset):
       meta = {'c': c, 's': s, 'gt_det': gt_det, 'img_id': img_id}
       ret['meta'] = meta
 
-    import ipdb; ipdb.set_trace()
+    
     return ret
