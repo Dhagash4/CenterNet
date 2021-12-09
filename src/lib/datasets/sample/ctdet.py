@@ -13,6 +13,7 @@ from utils.image import get_affine_transform, affine_transform
 from utils.image import gaussian_radius, draw_umich_gaussian, draw_msra_gaussian
 from utils.image import draw_dense_reg
 import math
+import matplotlib.pyplot as plt
 
 class CTDetDataset(data.Dataset):
   def _coco_box_to_bbox(self, box):
@@ -27,6 +28,7 @@ class CTDetDataset(data.Dataset):
     return border // i
 
   def __getitem__(self, index):
+    
     img_id = self.images[index]
     file_name = self.coco.loadImgs(ids=[img_id])[0]['file_name']
     img_path = os.path.join(self.img_dir, file_name)
@@ -96,10 +98,19 @@ class CTDetDataset(data.Dataset):
                     draw_umich_gaussian
 
     gt_det = []
+    #DEBUGGING
+    # print(img.shape)
+    # image = img.astype(np.uint8)
     for k in range(num_objs):
       ann = anns[k]
       bbox = self._coco_box_to_bbox(ann['bbox'])
       cls_id = int(self.cat_ids[ann['category_id']])
+      #Debugging
+      # bbox_old = bbox
+      # point1 = (int(bbox_old[0]),int(bbox_old[3]))
+      # point2 = (int(bbox_old[2]),int(bbox_old[1]))
+      # import ipdb;ipdb.set_trace()
+      # image = cv2.rectangle(image,point1,point2,(255,0,0),3)
       if flipped:
         bbox[[0, 2]] = width - bbox[[2, 0]] - 1
       bbox[:2] = affine_transform(bbox[:2], trans_output)
@@ -143,5 +154,4 @@ class CTDetDataset(data.Dataset):
       meta = {'c': c, 's': s, 'gt_det': gt_det, 'img_id': img_id}
       ret['meta'] = meta
 
-    
     return ret
